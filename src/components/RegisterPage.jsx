@@ -6,13 +6,7 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
-    mobile: '',
     email: '',
-    day: '',
-    month: '',
-    year: '',
-    profession: '',
-    medicalHistory: null,
     avatar: '',
     password: '',
     confirmPassword: '',
@@ -23,12 +17,9 @@ const RegisterPage = () => {
 
   const validateForm = () => {
     if (!formData.username.trim()) return 'Username is required';
-    if (!/^\d{10}$/.test(formData.mobile)) return 'Mobile must be 10 digits';
     if (!/^\S+@\S+\.\S+$/.test(formData.email)) return 'Invalid email format';
-    if (!formData.day || !formData.month || !formData.year) return 'Age is required';
     if (formData.password !== formData.confirmPassword) return 'Passwords do not match';
     if (!formData.avatar) return 'Please select an avatar';
-    if (!formData.medicalHistory) return 'Medical history PDF is required';
     return '';
   };
 
@@ -53,77 +44,25 @@ const RegisterPage = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-b from-purple-900 to-teal-500 text-white">
       <h1 className="text-3xl mb-6">Create New Account</h1>
-      <form onSubmit={handleSubmit} className="w-1/2 space-y-4">
+      <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4">
         <input
           type="text"
           placeholder="Username"
           value={formData.username}
           onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-          className="p-2 border rounded-lg w-full"
-        />
-        <input
-          type="text"
-          placeholder="Mobile (10 digits)"
-          value={formData.mobile}
-          onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
-          className="p-2 border rounded-lg w-full"
+          className="p-2 border rounded-lg w-full bg-white/5 text-white placeholder-white/60"
         />
         <input
           type="email"
           placeholder="Email"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          className="p-2 border rounded-lg w-full"
-        />
-        <div className="flex space-x-2">
-          <select
-            value={formData.day}
-            onChange={(e) => setFormData({ ...formData, day: e.target.value })}
-            className="p-2 border rounded-lg"
-          >
-            <option value="">Day</option>
-            {Array.from({ length: 31 }, (_, i) => (
-              <option key={i + 1} value={i + 1}>{i + 1}</option>
-            ))}
-          </select>
-          <select
-            value={formData.month}
-            onChange={(e) => setFormData({ ...formData, month: e.target.value })}
-            className="p-2 border rounded-lg"
-          >
-            <option value="">Month</option>
-            {Array.from({ length: 12 }, (_, i) => (
-              <option key={i + 1} value={i + 1}>{i + 1}</option>
-            ))}
-          </select>
-          <select
-            value={formData.year}
-            onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-            className="p-2 border rounded-lg"
-          >
-            <option value="">Year</option>
-            {Array.from({ length: 100 }, (_, i) => (
-              <option key={2025 - i} value={2025 - i}>{2025 - i}</option>
-            ))}
-          </select>
-        </div>
-        <input
-          type="text"
-          placeholder="Profession"
-          value={formData.profession}
-          onChange={(e) => setFormData({ ...formData, profession: e.target.value })}
-          className="p-2 border rounded-lg w-full"
-        />
-        <input
-          type="file"
-          accept="application/pdf"
-          onChange={(e) => setFormData({ ...formData, medicalHistory: e.target.files[0] })}
-          className="p-2 border rounded-lg w-full"
+          className="p-2 border rounded-lg w-full bg-white/5 text-white placeholder-white/60"
         />
         <select
           value={formData.avatar}
           onChange={(e) => setFormData({ ...formData, avatar: e.target.value })}
-          className="p-2 border rounded-lg w-full"
+          className="p-2 border rounded-lg w-full bg-white/5 text-white"
         >
           <option value="">Select Avatar</option>
           {avatars.map((avatar) => (
@@ -135,19 +74,20 @@ const RegisterPage = () => {
           placeholder="Password"
           value={formData.password}
           onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-          className="p-2 border rounded-lg w-full"
+          className="p-2 border rounded-lg w-full bg-white/5 text-white placeholder-white/60"
         />
         <input
           type="password"
           placeholder="Confirm Password"
           value={formData.confirmPassword}
           onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-          className="p-2 border rounded-lg w-full"
+          className="p-2 border rounded-lg w-full bg-white/5 text-white placeholder-white/60"
         />
         {error && <p className="text-red-500">{error}</p>}
-        <button type="submit" className="p-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600">
-          Register
-        </button>
+        <div className="flex justify-between items-center">
+          <button type="submit" className="p-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600">Register</button>
+          <a onClick={() => navigate('/login')} className="text-white/80 hover:underline cursor-pointer">Back to login</a>
+        </div>
       </form>
     </div>
   );

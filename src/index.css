@@ -11,3 +11,75 @@
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
+
+/* Mandala glow for logo and accents */
+.mandala-glow {
+  box-shadow: 0 0 8px rgba(255,215,0,0.12), 0 0 24px rgba(75,0,130,0.12);
+  animation: mandala 6s infinite linear;
+}
+@keyframes mandala {
+  0% { filter: drop-shadow(0 0 0 rgba(255,215,0,0)); }
+  50% { filter: drop-shadow(0 0 16px rgba(255,215,0,0.35)); }
+  100% { filter: drop-shadow(0 0 0 rgba(255,215,0,0)); }
+}
+
+/* Theme helpers */
+:root {
+  --bg-start: #4B0082; /* purple-900 */
+  --bg-end: #008080; /* teal-500 */
+  --accent: #FFD700; /* gold-200 */
+}
+
+html.light {
+  --bg-start: #f3e8ff;
+  --bg-end: #e6fffa;
+  --accent: #b58900;
+}
+
+.glass {
+  background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Responsive small helpers */
+@media (max-width: 768px) {
+  .hide-sm { display: none; }
+}
+
+  /* Decorative landing page elements */
+  .decor-arrow {
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    border-radius: 9999px;
+    transform: translateY(0) rotate(0deg);
+    animation: floaty 6s ease-in-out infinite;
+    filter: blur(6px);
+  }
+  .decor-arrow::after {
+    content: '➤';
+    position: absolute;
+    right: 12px;
+    top: 18px;
+    font-size: 26px;
+    color: rgba(255,255,255,0.6);
+  }
+  @keyframes floaty {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+  }
+
+  .cartwheel {
+    animation: spin 16s linear infinite;
+    box-shadow: 0 8px 24px rgba(2,6,23,0.6);
+  }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+  /* accessibility: focus ring for keyboard users */
+  .focus-ring:focus {
+    outline: 3px solid rgba(99,102,241,0.35);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
